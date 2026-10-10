@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta name="description" content="VESTIQ — More Style. Less Stress. Ton assistant de style.">
+  <title>VESTIQ — More Style. Less Stress.</title>
+  <style>
+    :root {
+      --bg: #0b0b0d;
+      --panel: #151519;
+      --border: #29292f;
+      --white: #f5f5f7;
+      --muted: #9999a6;
+      --blue: #6366f1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+
+    header {
+      padding: 22px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: #0b0b0df2;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: 5px;
+    }
+
+    .logo {
+      color: var(--blue);
+      font-size: 30px;
+      letter-spacing: 0;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    main {
+      width: min(100% - 32px, 720px);
+      margin: auto;
+      padding: 35px 0 110px;
+    }
+
+    .hero { padding: 28px 0 35px; }
+
+    .eyebrow {
+      color: #9294ff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(42px, 12vw, 70px);
+      line-height: 1.02;
+      letter-spacing: -3px;
+      margin: 20px 0 16px;
+    }
+
+    h1 span { color: var(--blue); }
+
+    .subtitle {
+      color: #b6b6c2;
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 450px;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 15px 12px;
+      color: var(--white);
+      background: var(--panel);
+      font-weight: bold;
+    }
+
+    .btn.primary {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .btn:active { transform: scale(.98); }
+
+    .preview {
+      margin-top: 22px;
+      min-height: 150px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(145deg, #191922, #0f0f12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .preview img {
+      display: block;
+      max-width: 100%;
+      max-height: 350px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .camera-icon { font-size: 35px; margin-bottom: 10px; }
+    .preview p { color: var(--muted); font-size: 13px; }
+
+    section { margin-top: 35px; }
+    h2 { font-size: 21px; margin-bottom: 8px; }
+    .section-desc { color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+    .form-card {
+      margin-top: 16px;
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin: 15px 0 8px;
+      color: #d7d7e0;
+    }
+
+    label:first-child { margin-top: 0; }
+
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 13px;
+      background: #0d0d10;
+      border: 1px solid #35353e;
+      color: white;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    input:focus, select:focus { border-color: var(--blue); }
+
+    .two-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .result {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      display: none;
+      line-height: 1.7;
+    }
+
+    .result h3 { margin-top: 0; }
+    .result .score { color: #9294ff; font-size: 25px; font-weight: bold; }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .feature .symbol { font-size: 23px; }
+    .feature h3 { font-size: 14px; }
+    .feature p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+    .note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      margin-top: 25px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 25px 16px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 390px) {
+      .actions { grid-template-columns: 1fr; }
+      .brand { font-size: 20px; }
+      .two-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="logo">V</span> VESTIQ</div>
+    <div class="status">STYLE, YOUR WAY.</div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="eyebrow">Ton assistant de style</div>
+      <h1>MORE STYLE.<br><span>LESS STRESS.</span></h1>
+      <p class="subtitle">
+        Trouve des idées de tenues qui te ressemblent.
+        Ton style, tes choix, ton budget.
+      </p>
+      <div class="actions">
+        <button class="btn primary" onclick="document.getElementById('preferences').scrollIntoView({behavior:'smooth'})">
+          ✦ Créer un outfit
+        </button>
+        <button class="btn" onclick="document.getElementById('photoInput').click()">
+          ▧ Choisir ma photo
+        </button>
+      </div>
+
+      <input class="hidden" id="photoInput" type="file" accept="image/*">
+      <input class="hidden" id="cameraInput" type="file" accept="image/*" capture="user">
+
+      <div class="preview" id="photoPreview">
+        <div class="camera-icon">◎</div>
+        <strong>Ton style commence ici.</strong>
+        <p>Choisis une photo depuis ta galerie ou prends un selfie.</p>
+        <button class="btn" onclick="document.getElementById('cameraInput').click()">📷 Prendre un selfie</button>
+      </div>
+    </div>
+
+    <section id="preferences">
+      <div class="eyebrow">Personnalise ton style</div>
+      <h2>Construisons ton outfit.</h2>
+      <p class="section-desc">Choisis tes préférences. Tu peux laisser les critères sur « Aucun ».</p>
+
+      <div class="form-card">
+        <div class="two-cols">
+          <div>
+            <label for="style">Ton style</label>
+            <select id="style">
+              <option>Aucun</option>
+              <option>Streetwear</option>
+              <option>Sportwear</option>
+              <option>Casual</option>
+              <option>Minimaliste</option>
+              <option>Chic</option>
+              <option>Techwear</option>
+            </select>
+          </div>
+          <div>
+            <label for="occasion">Occasion</label>
+            <select id="occasion">
+              <option>Aucune</option>
+              <option>École</option>
+              <option>Sortie</option>
+              <option>Sport</option>
+              <option>Événement</option>
+              <option>Quotidien</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two-cols">
+          <div>
+            <label for="weather">Météo</label>
+            <select id="weather">
+              <option>Aucune</option>
+              <option>Chaud</option>
+              <option>Doux</option>
+              <option>Froid</option>
+              <option>Pluie</option>
+            </select>
+          </div>
+          <div>
+            <label for="color">Couleur préférée</label>
+            <select id="color">
+              <option>Aucune</option>
+              <option>Noir</option>
+              <option>Blanc</option>
+              <option>Gris</option>
+              <option>Bleu</option>
+              <option>Beige</option>
+              <option>Vert</option>
+              <option>Couleurs mélangées</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two-cols">
+          <div>
+            <label for="budget">Budget (€)</label>
+            <input id="budget" type="number" min="0" placeholder="Ex. 100">
+          </div>
+          <div>
+            <label for="shoeSize">Pointure (facultatif)</label>
+            <input id="shoeSize" type="number" min="15" max="55" placeholder="Ex. 42">
+          </div>
+        </div>
+
+        <label for="height">Taille en cm (facultatif)</label>
+        <input id="height" type="number" min="80" max="250" placeholder="Ex. 170">
+
+        <p class="hint">VESTIQ ne juge pas ton apparence. Ces informations servent uniquement à personnaliser tes idées de tenues.</p>
+
+        <button class="btn primary" style="width:100%; margin-top:20px" onclick="generateOutfit()">
+          ✦ Générer une idée d'outfit
+        </button>
+
+        <div class="result" id="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">L'univers VESTIQ</div>
+      <h2>Plus qu'une tenue.</h2>
+      <div class="features">
+        <div class="feature">
+          <div class="symbol">✦</div>
+          <h3>Idées personnalisées</h3>
+          <p>Des suggestions à partir de tes préférences.</p>
+        </div>
+        <div class="feature">
+          <div class="symbol">▧</div>
+          <h3>Ton dressing</h3>
+          <p>Prépare un espace pour organiser tes vêtements.</p>
+        </div>
+        <div class="feature">
+          <div class="symbol">◎</div>
+          <h3>Ta photo</h3>
+          <p>Choisis une photo depuis ton appareil.</p>
+        </div>
+        <div class="feature">
+          <div class="symbol">♡</div>
+          <h3>Les avis de tes amis</h3>
+          <p>Une fonctionnalité communautaire à construire ensuite.</p>
+        </div>
+      </div>
+      <p class="note">
+        Version de départ : les idées de tenues sont des suggestions de démonstration.
+        L'analyse IA des photos, le catalogue de vrais produits et le partage entre amis
+        nécessiteront des intégrations supplémentaires.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    VESTIQ · MORE STYLE. LESS STRESS.<br><br>
+    TON STYLE, TES RÈGLES.
+  </footer>
+
+  <script>
+    const photoInput = document.getElementById('photoInput');
+    const cameraInput = document.getElementById('cameraInput');
+    const photoPreview = document.getElementById('photoPreview');
+
+    function showPhoto(file) {
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Choisis un fichier image.');
+        return;
+      }
+
+      if (file.size > 10 * 1024 * 1024) {
+        alert('Cette image dépasse 10 Mo. Choisis une image plus légère.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        photoPreview.innerHTML = '';
+
+        const img = document.createElement('img');
+        img.src = event.target.result;
+        img.alt = 'Aperçu de ta photo';
+        photoPreview.appendChild(img);
+
+        const message = document.createElement('p');
+        message.textContent = 'Photo sélectionnée sur cet appareil.';
+        photoPreview.appendChild(message);
+
+        const button = document.createElement('button');
+        button.className = 'btn';
+        button.textContent = 'Changer de photo';
+        button.onclick = function() { photoInput.click(); };
+        photoPreview.appendChild(button);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    photoInput.addEventListener('change', event => showPhoto(event.target.files[0]));
+    cameraInput.addEventListener('change', event => showPhoto(event.target.files[0]));
+
+    function generateOutfit() {
+      const style = document.getElementById('style').value;
+      const occasion = document.getElementById('occasion').value;
+      const weather = document.getElementById('weather').value;
+      const color = document.getElementById('color').value;
+      const budgetValue = document.getElementById('budget').value;
+      const budget = budgetValue === '' ? null : Number(budgetValue);
+
+      let top = 'un haut simple';
+      let bottom = 'un pantalon confortable';
+      let shoes = 'des baskets polyvalentes';
+      let layer = '';
+
+      if (style === 'Streetwear') {
+        top = 'un hoodie oversize';
+        bottom = 'un pantalon cargo';
+        shoes = 'des sneakers streetwear';
+      } else if (style === 'Sportwear') {
+        top = 'un t-shirt technique';
+        bottom = 'un pantalon de jogging';
+        shoes = 'des baskets sportives';
+      } else if (style === 'Chic') {
+        top = 'une chemise ou un haut élégant';
+        bottom = 'un pantalon bien coupé';
+        shoes = 'des chaussures sobres';
+      } else if (style === 'Minimaliste') {
+        top = 'un haut uni';
+        bottom = 'un pantalon aux lignes simples';
+        shoes = 'des sneakers épurées';
+      } else if (style === 'Techwear') {
+        top = 'une veste technique';
+        bottom = 'un pantalon utilitaire';
+        shoes = 'des baskets robustes';
+      } else if (style === 'Casual') {
+        top = 'un t-shirt ou un sweat décontracté';
+        bottom = 'un jean droit';
+        shoes = 'des sneakers classiques';
+      }
+
+      if (weather === 'Froid' || weather === 'Pluie') {
+        layer = weather === 'Pluie'
+          ? ' Ajoute une veste imperméable.'
+          : ' Ajoute une veste chaude.';
+      } else if (weather === 'Chaud') {
+        layer = ' Privilégie des matières légères.';
+      }
+
+      const colorText = color !== 'Aucune'
+        ? ' Palette suggérée : ' + color.toLowerCase() + '.'
+        : '';
+
+      const occasionText = occasion !== 'Aucune'
+        ? ' Pense à adapter la tenue pour : ' + occasion.toLowerCase() + '.'
+        : '';
+
+      let budgetText = budget === null
+        ? 'Fixe un budget avant d’acheter.'
+        : budget === 0
+          ? 'Privilégie les vêtements que tu possèdes déjà.'
+          : 'Essaie de garder l’ensemble dans ton budget de ' + budget + ' €.';
+
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.innerHTML = '';
+
+      const heading = document.createElement('h3');
+      heading.textContent = '✦ Ton idée de tenue';
+
+      const outfit = document.createElement('p');
+      outfit.textContent = 'Haut : ' + top + '. Bas : ' + bottom + '. Chaussures : ' + shoes + '.' + layer + colorText + occasionText;
+
+      const budgetLine = document.createElement('p');
+      budgetLine.textContent = budgetText;
+
+      const disclaimer = document.createElement('p');
+      disclaimer.className = 'hint';
+      disclaimer.textContent = 'Suggestion indicative, pas une analyse IA. Aucun produit ni prix précis n’est garanti.';
+
+      result.append(heading, outfit, budgetLine, disclaimer);
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+              </html>
+          
